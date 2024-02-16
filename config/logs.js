@@ -10,7 +10,7 @@ winston.add(
     format: winston.format.simple(),
   }),
 );
-winston.add(new winston.transports.File({ filename: "logger.log" }));
+winston.add(new winston.transports.File({ filename: "logger.log" })); // creates a logger.log file locally where logs are saved ...
 winston.add(
   new winstonDB.MongoDB({
     level: "error",
