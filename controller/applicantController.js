@@ -1,4 +1,5 @@
 import Applicant from "../models/Applicant.js"
+import fs from "fs"
 
 export let applicantCreate = async(req,res)=>{
     try {
@@ -55,12 +56,16 @@ export let applicantUpdate = async(req,res)=>{
 
 export let applicantDelete = async(req,res)=>{
     try {
-        let applicantId = req.params
+        let applicantId = req.params.id
+        
         let result = await Applicant.findByIdAndDelete(applicantId)
+        fs.unlinkSync(`./public/${result.resume}`)
+
         res.status(200).json({
             success: true,
             message: "Applicant details deleted successfully"
         })
+
     } catch (error) {
         res.status(400).json({
             success:false,
