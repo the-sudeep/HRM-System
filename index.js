@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 //error handling mechanisms
 process.on('uncaughtException', err => {
-    console.error('Uncaught Exception:', err.message);
+    console.error('Uncaught Exception:', err);
     process.exit(1); // Exit the process after uncaught exception
   });
   
@@ -25,10 +25,6 @@ process.on('uncaughtException', err => {
     console.error('Unhandled Rejection:', reason);
   });
   
-
-
-//models
-require('./models/Job');
 
 app.listen(PORT, () => {
     console.log("The server is running on port %s ", PORT);
@@ -39,5 +35,5 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // load routes 
-const jobRoutes = require("./routes/job");
+const jobRoutes = require("./routes/jobRoutes");
 app.use("/", jobRoutes);
