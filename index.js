@@ -27,6 +27,8 @@ process.on('uncaughtException', err => {
   
 
 
+//models
+require('./models/Job');
 
 app.listen(PORT, () => {
     console.log("The server is running on port %s ", PORT);
@@ -36,4 +38,6 @@ app.listen(PORT, () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-throw new Error("This is a new error")
+// load routes 
+const jobRoutes = require("./routes/job");
+app.use("/", jobRoutes);
