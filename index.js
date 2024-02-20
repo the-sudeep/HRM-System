@@ -23,8 +23,13 @@ const PORT = process.env.PORT || 3000;
 const jobRoutes = require("./routes/jobRoutes");
 app.use("/", jobRoutes);
 
+<<<<<<< HEAD
+const applicantRoutes = require("./routes/applicantRoutes")
+app.use("/applicant",applicantRoutes)
+=======
 const hrRoutes = require('./routes/userRoute');
 app.use("/", hrRoutes);
+>>>>>>> b48bca2d1619e1e9abf0c3dc07b53aa8a351354c
 
 //error handling mechanisms//
 require('./utils/errorHandling')() 
