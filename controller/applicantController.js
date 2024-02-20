@@ -1,11 +1,12 @@
-import Applicant from "../models/Applicant.js"
-import fs from "fs"
+const Applicant = require("../models/Applicant")
+//fs comes default to delete ta string for file from database
+const fs = require("fs")
 
-export let applicantCreate = async(req,res)=>{
+let applicantCreate = async(req,res)=>{
     try {
         let data = req.body
-        let file = req.file
-        let result = await Applicant.create({
+        let file = req.file.filename
+        let result = await Applicant.create({   //spread operator to open object i.e "data" and merger file together in a single object
             ...data,
             resume:file
         })
@@ -21,7 +22,7 @@ export let applicantCreate = async(req,res)=>{
     }
 }
 
-export let applicantRead = async(req,res)=>{
+let applicantRead = async(req,res)=>{
     try {
         let result = await Applicant.findAll({})
         res.status(200).json({
@@ -37,7 +38,7 @@ export let applicantRead = async(req,res)=>{
     }
 }
 
-export let applicantUpdate = async(req,res)=>{
+let applicantUpdate = async(req,res)=>{
     try {
         let applicantId = req.params.id
         let data = req.body
@@ -54,7 +55,7 @@ export let applicantUpdate = async(req,res)=>{
     }
 }
 
-export let applicantDelete = async(req,res)=>{
+let applicantDelete = async(req,res)=>{
     try {
         let applicantId = req.params.id
         
@@ -72,4 +73,11 @@ export let applicantDelete = async(req,res)=>{
             message: error.message
         })
     }
+}
+
+module.exports = {
+    applicantCreate,
+    applicantRead,
+    applicantUpdate,
+    applicantDelete
 }
