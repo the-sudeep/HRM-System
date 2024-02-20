@@ -37,6 +37,22 @@ let applicantRead = async(req,res)=>{
         })
     }
 }
+let applicantReadSpecific = async(req,res)=>{
+    try {
+        let id = req.params.id
+        let result = await Applicant.findById(id)
+        res.status(200).json({
+            success: true,
+            message: "Applicant details read successfully"
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            success:false,
+            message: error.message
+        })
+    }
+}
 
 let applicantUpdate = async(req,res)=>{
     try {
@@ -78,6 +94,7 @@ let applicantDelete = async(req,res)=>{
 module.exports = {
     applicantCreate,
     applicantRead,
+    applicantReadSpecific,
     applicantUpdate,
     applicantDelete
 }
