@@ -1,5 +1,5 @@
 const Job = require('../models/Job');
-
+const emailService = require('../services/emailService');
 // create a new job (BY HR) 
 let jobCreate = async (req, res) => {
     try {
@@ -18,6 +18,17 @@ let jobCreate = async (req, res) => {
             description,
             requirements,
         });
+
+        try{
+            await emailService.sendJobPostedEmail(req.user.email);
+            res.status(201).json({
+                message : "Job-posted-email sent successfully to HR ",
+                hrEmail : req.user.email
+            })
+        }catch(err){
+            console.error("Error while sending job-posted-email: ", err);
+            throw err;
+        }
         res.status(200).json({
             success: true,
             message: "Job created successfully",
