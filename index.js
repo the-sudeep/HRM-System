@@ -1,7 +1,12 @@
 //import dependencies .
 const express = require("express");
 const bodyParser = require("body-parser");
-const winston = require("winston");
+
+// TODO :
+// const winston = require('winston');
+// require('./config/logs')();
+
+
 
 //database connection
 require('./config/db'); //database config
@@ -13,19 +18,19 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(express.static("./public"))
 
-//error handling mechanisms
-process.on('uncaughtException', err => {
-    console.error('Uncaught Exception:', err.message);
-    process.exit(1); // Exit the process after uncaught exception
-  });
-  
-  // Error handling middleware for unhandled rejections
-  process.on('unhandledRejection', (reason, promise) => {
-    console.error('Unhandled Rejection:', reason);
-  });
-  
+// load routes 
+const jobRoutes = require("./routes/jobRoutes");
+app.use("/", jobRoutes);
 
+const applicantRoutes = require("./routes/applicantRoutes")
+app.use("/applicant",applicantRoutes)
+const hrRoutes = require('./routes/userRoute');
+app.use("/", hrRoutes);
+
+//error handling mechanisms//
+require('./utils/errorHandling')() 
 
 
 app.listen(PORT, () => {
@@ -36,4 +41,6 @@ app.listen(PORT, () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-throw new Error("This is a new error")
+
+
+
