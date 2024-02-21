@@ -31,3 +31,6 @@ const hrSchema = new mongoose.Schema(
   
   const HR = mongoose.model("HR", hrSchema);
   module.exports = HR;
+
+
+  
