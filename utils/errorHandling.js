@@ -1,8 +1,8 @@
-
+// const logger = require('../config/logs');
 //error handling mechanisms 
 module.exports = function(){
     process.on('uncaughtException', err => {
-        winston.error(err.message);
+        console.error(err);
         process.exit(1); // Exit the process after uncaught exception
     });
       
