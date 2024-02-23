@@ -1,5 +1,5 @@
 const genAuthToken = require("./genAuthToken");
-const User = require("../models/HRmodel");
+const HR = require("../models/HRmodel");
 
 const sendToken = async (user, statusCode, res) => {
   const token = genAuthToken(user);
@@ -9,7 +9,7 @@ const sendToken = async (user, statusCode, res) => {
     httpOnly: true,
     secure: true,
   };
-  const loggedInUser = await User.findById(user._id).select("-password");
+  const loggedInUser = await HR.findById(user._id).select("-password");
   res.status(statusCode).cookie("token", token, cookieOptions).json({
     success: true,
     user: loggedInUser,

@@ -1,4 +1,4 @@
-const User = require("../models/HRmodel");
+const HR = require("../models/HRmodel");
 const bcrypt = require("bcrypt");
 const sendToken = require("../utils/sendJwtToken");
 
@@ -18,7 +18,7 @@ exports.registerUser = async (req, res) => {
       });
     }
 
-    const isUserAvailable = await User.findOne({ email });
+    const isUserAvailable = await HR.findOne({ email });
 
     if (isUserAvailable) {
       res.status(400).json({
@@ -29,7 +29,7 @@ exports.registerUser = async (req, res) => {
     const encryptedPw = await bcrypt.hash(password, 10);
 
     //Create the object of the user data..
-    const createdUser = await User.create({
+    const createdUser = await HR.create({
       username,
       email,
       password: encryptedPw,
@@ -37,7 +37,7 @@ exports.registerUser = async (req, res) => {
     });
 
     //Exclude the password field in client side of registration..
-    const registeredUser = await User.findById(createdUser._id).select(
+    const registeredUser = await HR.findById(createdUser._id).select(
       "-password"
     );
 
@@ -58,7 +58,7 @@ exports.loginUser = async (req, res) => {
         .json({ message: "Please enter your email and password" });
     }
 
-    const user = await User.findOne({ email: req.body.email });
+    const user = await HR.findOne({ email: req.body.email });
 
     // Check if the given email and password is valid or not
     if (!user) {
