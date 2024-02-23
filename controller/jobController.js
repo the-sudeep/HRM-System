@@ -36,8 +36,8 @@ let jobCreate = async (req, res) => {
         });
     } catch (err) {
         res.status(500).json({
-            message: "Internal Server Error: ",
-            error: err.message,
+            success: false,
+            message: err.message,
         });
     }
 };
@@ -56,8 +56,8 @@ let getAllJobs = async (req, res) => {
         });
     }catch(err){
         res.status(500).json({
-            message : "Internal Server Error: ",
-            error : err.message,
+             success: false,
+             message : err.message,
         });
     }
 };
@@ -78,8 +78,8 @@ let getJobById = async (req, res) => {
         });
     }catch(err){
         res.status(500).json({
-            message: "Internal Server Error: ",
-            error: err.message,
+            success: false,
+            message : err.message,
         });
     }
 };
@@ -125,7 +125,7 @@ let deleteJob = async (req, res) => {
         });
     }catch(err){
         res.status(500).json({
-            message: "Internal Server Error: ",
+            message: "Internal Server Error!",
             error: err.message,
         });
     } 
