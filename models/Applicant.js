@@ -25,7 +25,9 @@ const applicantSchema = new mongoose.Schema({
     match: /^[0-9]{10}$/, // Custom validation for phone number format (10 digits)
   },
   address: String,
-  resume: String,
+  resume: [
+    {type:String}
+  ],
   previousExperience: [
     {
       position: String,
