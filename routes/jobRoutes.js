@@ -5,8 +5,8 @@ const {jobCreate, getAllJobs,getJobById, updateJob, deleteJob } = require('../co
 const tokenValidator = require('../middlewares/authMiddleware');
 
 router.post('/create',tokenValidator,jobCreate); // create a new job 
-router.get('/',tokenValidator, getAllJobs);// get all the jobs 
-router.get('/:id', tokenValidator,getJobById); //get job by ID 
+router.get('/', getAllJobs);// get all the jobs 
+router.get('/:id',getJobById); //get job by ID 
 router.put('/update/:id',tokenValidator, updateJob) // update the job by id 
 router.delete('/delete/:id',tokenValidator, deleteJob); // delete the job by ID
 
