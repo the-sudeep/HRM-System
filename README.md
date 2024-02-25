@@ -25,7 +25,7 @@ The api endpoint for HR looks like :
 
 => `/api/hr/logout` and finally for logout .
 
-## The enpoints for posting JOB will look like :
+## For Jobs : 
 
 => `/api/jobs/create` For POSTING new job (Only HR can : Strict validations are implemented )
 
@@ -37,4 +37,12 @@ The api endpoint for HR looks like :
 
 => `/api/jobs/delete/job-id` Delete the job of the given ID 
 
+
+## For candidates application :
+
+=> `/api/applicant/create`  New applincant or candidate posting a job application 
+
+=> `/api/applicant/` Get all the applicants details(HR)
+
+=> `/api/applicant/applicant-id` get the specific applicant of given ID
 
