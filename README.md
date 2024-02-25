@@ -16,3 +16,25 @@ The backend application API which allows you to fetch the information of HR , Jo
 
 ## Endpoints : 
 
+### APIs for HR :
+The api endpoint for HR looks like : 
+
+=> `/api/hr/register` to register or sign-up the HR identity,
+
+=> `/api/hr/login` to login HR's existing identity,
+
+=> `/api/hr/logout` and finally for logout .
+
+## The enpoints for posting JOB will look like :
+
+=> `/api/jobs/create` For POSTING new job (Only HR can : Strict validations are implemented )
+
+=> `/api/jobs/` Get all the jobs available (Anyone can view the jobs)
+
+=> `/api/jobs/job-id` Get the specific job of the given ID
+
+=> `/api/jobs/update/job-id` Update the job of the given ID 
+
+=> `/api/jobs/delete/job-id` Delete the job of the given ID 
+
+
