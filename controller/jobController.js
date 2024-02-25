@@ -1,10 +1,12 @@
 const Job = require('../models/Job');
 const emailService = require('../services/emailService');
+const cron = require('node-cron'); // scheduling module for deleting expired job
+
 // create a new job (BY HR) 
 let jobCreate = async (req, res) => {
     try {
         const { title, company, location, salary, description, requirements } = req.body;
-        if (!title || !company || !location || !salary || !description || !requirements) {
+        if (!title || !company || !location || !salary || !description || !deadline || !requirements) {
             return res.status(400).json({
                 success: false,
                 message: "Please provide all required fields"
@@ -16,6 +18,7 @@ let jobCreate = async (req, res) => {
             location,
             salary,
             description,
+            deadline,
             requirements,
         });
 
@@ -130,6 +133,31 @@ let deleteJob = async (req, res) => {
         });
     } 
 };
+
+// delete the jobs that are expired (deadline is less than current date)
+async function deleteExpiredJobs() {
+    try {
+      const expiredJobs = await Job.findExpiredJobs();
+      if (expiredJobs.length > 0) {
+        await Job.deleteMany({ _id: { $in: expiredJobs.map(job => job._id) } });
+        console.log('Expired jobs deleted successfully');
+      } else {
+        console.log('No expired jobs found');
+      }
+    } catch (error) {
+      console.error('Error deleting expired jobs:', error);
+    }
+
+
+}
+
+// schedule the task to delete expired jobs
+cron.schedule('0 0 * * *', async () => {
+    console.log('Running deleteExpiredJobs task');
+    await deleteExpiredJobs();
+});
+
+
 
 module.exports = {
     jobCreate,
